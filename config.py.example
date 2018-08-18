@@ -1,0 +1,11 @@
+#Database
+DB_NAME = "data.db"
+
+#Imgur
+IMGUR_CLIENT_ID = ""
+IMGUR_CLIENT_SECRET = ""
+IMGUR_ALBUM = ""
+
+#Discord
+DISCORD_PREFIX = "!"
+DISCORD_TOKEN = ""
