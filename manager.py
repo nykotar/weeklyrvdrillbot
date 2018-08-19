@@ -6,7 +6,7 @@ import asyncio
 
 class Manager:
 
-    def __init__(self):
+    def load(self):
         db = peewee.SqliteDatabase(config.DB_NAME)
         try:
             db.create_tables([Image, Target])

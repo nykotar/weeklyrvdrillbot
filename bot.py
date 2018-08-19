@@ -1,10 +1,10 @@
+from os import listdir
+from os.path import isfile, join
 import discord
 from discord.ext import commands
-import imgurpython
 from manager import Manager
 import config
 
-imgur = imgurpython.ImgurClient(config.IMGUR_CLIENT_ID, config.IMGUR_CLIENT_SECRET)
 db = Manager()
 bot = commands.Bot(command_prefix=config.DISCORD_PREFIX)
 
@@ -12,22 +12,22 @@ bot = commands.Bot(command_prefix=config.DISCORD_PREFIX)
 async def on_ready():
     print('Bot ready.')
 
-@bot.command()
-async def refreshpool():
-    #TODO: Check for admin rights
-    images = imgur.get_album_images(config.IMGUR_ALBUM)
-    print("Got images")
-    msg = await bot.say("Refreshing..")
-
-    await db.refreshpool(images)
-    
-    await bot.edit_message(msg, "Done!")
-    print("Done refreshing.")
-
-
-@bot.command(description="Returns information about the image pool.")
+@bot.command(brief="Returns information about the image pool.")
 async def poolinfo():
     await bot.say("There are %d images in the pool." % db.poolinfo())
 
+if __name__ == "__main__":
+    print("Checking database..")
+    db.load()
 
-bot.run(config.DISCORD_TOKEN)
+    print("Loading extensions..")
+    cogs = [f.replace('.py', '') for f in listdir(config.COGS_DIR) if isfile(join(config.COGS_DIR, f))]
+    for extension in cogs:
+        try:
+            bot.load_extension(config.COGS_DIR + "." + extension)
+            print("Loaded", extension)
+        except Exception as e:
+            exc = '{}: {}'.format(type(e).__name__, e)
+            print('Failed to load extension {}\n{}'.format(extension, exc))
+
+    bot.run(config.DISCORD_TOKEN)
