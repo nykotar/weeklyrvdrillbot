@@ -19,3 +19,4 @@ class Target(BaseModel):
     assigned_date = DateTimeField(default=datetime.datetime.now)
     requested_by = CharField()
     revelation_date = DateTimeField(null=True)
+    times_revealed = IntegerField(default=0)

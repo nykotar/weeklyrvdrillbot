@@ -1,3 +1,3 @@
 # weeklyrvdrillbot
 
-Discord bot for generating weekly remote viewing challenges.
+Discord bot for generating weekly remote viewing challenges and more.
