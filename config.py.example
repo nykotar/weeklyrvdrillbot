@@ -9,3 +9,6 @@ IMGUR_ALBUM = ""
 #Discord
 DISCORD_PREFIX = "!"
 DISCORD_TOKEN = ""
+
+#Misc
+COGS_DIR = "cogs"
