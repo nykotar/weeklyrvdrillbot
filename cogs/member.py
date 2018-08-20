@@ -11,7 +11,9 @@ class Member:
 
     @commands.command(brief="Returns information about the image pool.")
     async def poolinfo(self):
-        await self.bot.say("There are %d images in the pool." % self.db.poolinfo())
+        image_count = self.db.image_count()
+        image_assigned_count = self.db.image_assigned_count()
+        await self.bot.say("There are {} images in the pool of which {:.2f}% of them have been assigned.".format(image_count, (image_assigned_count * 100) / image_count))
 
     @commands.command(name="gentarget", brief="Generates a target for practicing.", pass_context=True)
     async def gen_target(self, ctx):

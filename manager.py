@@ -64,5 +64,8 @@ class Manager:
         except DoesNotExist:
             return None
     
-    def poolinfo(self):
+    def image_count(self):
         return Image.select().count()
+    
+    def image_assigned_count(self):
+        return Image.select().where(Image.assigned == True).count()
