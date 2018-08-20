@@ -1,5 +1,4 @@
 import random
-import datetime
 import peewee
 import asyncio
 import imgurpython
@@ -61,10 +60,6 @@ class Manager:
     def get_target(self, target_id):
         try:
             target = Target.get(Target.target_id == target_id)
-            if not target.revelation_date:
-                target.revelation_date = datetime.datetime.now()
-            target.times_revealed += 1
-            target.save()
             return target
         except DoesNotExist:
             return None

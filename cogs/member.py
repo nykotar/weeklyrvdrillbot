@@ -1,3 +1,4 @@
+import datetime
 import discord
 from discord.ext import commands
 from manager import Manager
@@ -28,12 +29,38 @@ class Member:
 
         target = self.db.get_target(target_id)
         if target:
+            if not target.revelation_date:
+                target.revelation_date = datetime.datetime.now()
+            target.times_revealed += 1
+            target.save()
+
             embed=discord.Embed(title="Your target image", description=target_id, color=0xffffff)
             embed.set_thumbnail(url=target.image.link)
             await self.bot.whisper(embed=embed)
             #await self.bot.whisper(target.image.link)
         else:
             await self.bot.whisper("Target not found.")
+
+    @commands.command(brief="Get information about a target number.")
+    async def info(self, target_id : str=None):
+
+        if not target_id:
+            await self.bot.say("Target id is missing!")
+            return
+        
+        target = self.db.get_target(target_id)
+        if target:
+            revelation_date = "not revealed yet"
+            if target.revelation_date:
+                revelation_date = target.revelation_date.strftime("%m/%d/%y %H:%M")
+            embed=discord.Embed(color=0x2b0063)
+            embed.add_field(name=target_id, value="Requested by: " + target.requested_by
+            + "\nAssigned at: " + target.assigned_date.strftime("%m/%d/%y %H:%M")
+            + "\nRevealed at: " + revelation_date
+            + "\nRevealed " + str(target.times_revealed) + " times", inline=False)
+            await self.bot.say(embed=embed)
+        else:
+            await self.bot.say("Target not found.")
     
 def setup(bot):
     bot.add_cog(Member(bot))
