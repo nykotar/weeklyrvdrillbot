@@ -1,11 +1,10 @@
-import discord
 from discord.ext import commands
 import asyncio
 import imgurpython
 import config
 from manager import Manager
 
-class Admin():
+class Admin:
 
     def __init__(self, bot):
         self.bot = bot

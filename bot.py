@@ -12,10 +12,6 @@ bot = commands.Bot(command_prefix=config.DISCORD_PREFIX)
 async def on_ready():
     print('Bot ready.')
 
-@bot.command(brief="Returns information about the image pool.")
-async def poolinfo():
-    await bot.say("There are %d images in the pool." % db.poolinfo())
-
 if __name__ == "__main__":
     print("Checking database..")
     db.load()
