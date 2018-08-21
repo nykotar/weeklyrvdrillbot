@@ -4,8 +4,9 @@ import asyncio
 import datetime
 import schedule
 import praw
-import config
 from manager import Manager
+import config
+from utils import ordinal
 
 class Reddit:
 
@@ -29,7 +30,8 @@ class Reddit:
             last_drill.save()
 
         target = self.db.new_target(self.bot.user)
-        title = "Weekly Remote Viewing Challenge: " + datetime.date.today().strftime("%A %B %d, %Y") 
+        today = datetime.date.today()
+        title = "Weekly Remote Viewing Challenge: " + today.strftime("%A %B {}, %Y").format(ordinal.ordinal(today.strftime("%d"))) 
         message = "Target Reference Number: {}  \nThis post was submitted by the bot.  ".format(target.target_id)
         post_id = self.reddit.subreddit('nykotest').submit(title=title,
             selftext=message,
