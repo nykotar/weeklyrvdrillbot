@@ -10,7 +10,7 @@ class Manager:
     db = peewee.SqliteDatabase(config.DB_NAME)
 
     def load(self):
-        self.db.create_tables([Image, Target])
+        self.db.create_tables([Image, Target, Drill])
         print("Database loaded.")
 
     def add_image(self, image):
@@ -45,22 +45,33 @@ class Manager:
 
     def new_target(self, author):
         image = Image.select().order_by(fn.Random()).limit(1)[0]
-        target_id = self.__gen_target_id()
         
         target = Target()
         target.image = image
-        target.target_id = target_id
+        target.target_id = self.__gen_target_id()
         target.requested_by = author.name
         target.save()
         
         image.assigned = True
         image.save()
-        return target_id
+        return target
     
     def get_target(self, target_id):
         try:
             target = Target.get(Target.target_id == target_id)
             return target
+        except DoesNotExist:
+            return None
+
+    def new_drill(self, target, post_id):
+        drill = Drill()
+        drill.target = target
+        drill.post_id = post_id
+        drill.save()
+    
+    def get_last_drill(self):
+        try:
+            return Drill.select().order_by(Drill.id.desc()).get()
         except DoesNotExist:
             return None
     

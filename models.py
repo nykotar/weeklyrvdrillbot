@@ -20,3 +20,9 @@ class Target(BaseModel):
     requested_by = CharField()
     revelation_date = DateTimeField(null=True)
     times_revealed = IntegerField(default=0)
+
+class Drill(BaseModel):
+    date = DateTimeField(default=datetime.datetime.now)
+    target = ForeignKeyField(Target, backref="drills")
+    revealed = BooleanField(default=False)
+    post_id = CharField()

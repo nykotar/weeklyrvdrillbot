@@ -17,8 +17,8 @@ class Member:
 
     @commands.command(name="gentarget", brief="Generates a target for practicing.", pass_context=True)
     async def gen_target(self, ctx):
-        number = self.db.new_target(ctx.message.author)
-        embed=discord.Embed(title="Your Target", description=number, color=0x000000)
+        target = self.db.new_target(ctx.message.author)
+        embed=discord.Embed(title="Your Target", description=target.target_id, color=0x000000)
         embed.set_footer(text="To reveal type !reveal [number]")
         await self.bot.whisper(embed=embed)
     
