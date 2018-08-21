@@ -21,10 +21,12 @@ class Reddit:
     def run_drill(self):
         print("sending post")
         last_drill = self.db.get_last_drill()
-        if last_drill != None:
+        if last_drill != None and not last_drill.revealed:
             print("editing")
             post = self.reddit.submission(id=last_drill.post_id)
             post.edit(post.selftext + "\nTarget: " + last_drill.target.image.link)
+            last_drill.revealed = True
+            last_drill.save()
 
         target = self.db.new_target(self.bot.user)
         title = "Weekly Remote Viewing Challenge: " + datetime.date.today().strftime("%A %B %d, %Y") 
