@@ -1,3 +1,5 @@
 discord.py
 imgurpython
 peewee==3.6.4
+praw
+schedule
