@@ -39,7 +39,6 @@ class Member:
             embed=discord.Embed(title="Your target image", description=target_id, color=0xffffff)
             embed.set_thumbnail(url=target.image.link)
             await self.bot.whisper(embed=embed)
-            #await self.bot.whisper(target.image.link)
         else:
             await self.bot.whisper("Target not found.")
 
