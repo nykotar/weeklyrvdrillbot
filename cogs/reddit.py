@@ -16,7 +16,7 @@ class Reddit:
         self.reddit = praw.Reddit(client_id=config.REDDIT_CLIENT_ID,
                      client_secret=config.REDDIT_CLIENT_SECRET, password=config.REDDIT_PASSWORD,
                      user_agent=config.REDDIT_USER_AGENT, username=config.REDDIT_USERNAME)
-        schedule.every().thursday.at("05:00").do(self.run_drill)
+        schedule.every().friday.at("8:00").do(self.run_drill)
         self.bot.loop.create_task(self.run_tasks())
 
     def run_drill(self):
@@ -30,8 +30,8 @@ class Reddit:
         target = self.db.new_target(self.bot.user)
         today = datetime.date.today()
         title = "Weekly Remote Viewing Challenge: " + today.strftime("%A %B {}, %Y").format(ordinal.ordinal(today.strftime("%d"))) 
-        message = "Target Reference Number: {}  \nThis post was submitted by the bot.  ".format(target.target_id)
-        post_id = self.reddit.subreddit('nykotest').submit(title=title,
+        message = "Target Reference Number: {}  ".format(target.target_id)
+        post_id = self.reddit.subreddit('WeeklyRVChallenge').submit(title=title,
             selftext=message,
             send_replies=False)
         self.db.new_drill(target, post_id)
