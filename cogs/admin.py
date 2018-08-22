@@ -17,9 +17,7 @@ class Admin:
         print("Pool refresh requested!")
         images = self.imgur.get_album_images(config.IMGUR_ALBUM)
         msg = await self.bot.say("Refreshing..")
-
         count = await self.db.add_images(images)
-        
         await self.bot.edit_message(msg, "Done! %d images were added into the database." % count)
         print("Done refreshing.")
 

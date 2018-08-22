@@ -16,7 +16,7 @@ class Reddit:
         self.reddit = praw.Reddit(client_id=config.REDDIT_CLIENT_ID,
                      client_secret=config.REDDIT_CLIENT_SECRET, password=config.REDDIT_PASSWORD,
                      user_agent=config.REDDIT_USER_AGENT, username=config.REDDIT_USERNAME)
-        schedule.every().friday.do(self.run_drill)
+        schedule.every().thursday.at("05:00").do(self.run_drill)
         self.bot.loop.create_task(self.run_tasks())
 
     def run_drill(self):
@@ -42,5 +42,4 @@ class Reddit:
             await asyncio.sleep(5)
 
 def setup(bot):
-    return
     bot.add_cog(Reddit(bot))

@@ -36,7 +36,7 @@ class Member:
             target.times_revealed += 1
             target.save()
 
-            embed=discord.Embed(title="Your target image", description=target_id, color=0xffffff)
+            embed=discord.Embed(title="Your target image", description="[{}]({})".format(target_id, target.image.link), color=0xffffff)
             embed.set_thumbnail(url=target.image.link)
             await self.bot.whisper(embed=embed)
         else:
