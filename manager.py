@@ -9,7 +9,7 @@ class Manager:
 
     db = peewee.SqliteDatabase(config.DB_NAME)
 
-    def load(self):
+    def __init__(self):
         self.db.create_tables([Image, Target, Drill])
         print("Database loaded.")
 
