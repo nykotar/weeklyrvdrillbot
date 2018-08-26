@@ -41,5 +41,4 @@ class Reddit:
             await asyncio.sleep(5)
 
 def setup(bot):
-    return
     bot.add_cog(Reddit(bot))

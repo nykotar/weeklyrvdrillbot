@@ -1,3 +1,8 @@
-# weeklyrvdrillbot
-
-Discord bot for generating weekly remote viewing challenges and more.
+# IngoBot
+  
+The official Discord bot for /r/remoteviewing and /r/WeeklyRVChallenge!  
+  
+# Features
+  
+* Target practicing  
+* Weekly challenges on /r/WeeklyRVChallenge
