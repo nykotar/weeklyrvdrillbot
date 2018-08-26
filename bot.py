@@ -18,7 +18,7 @@ class IngoBot(commands.Bot):
         cogs = [f.replace('.py', '') for f in listdir(config.COGS_DIR) if isfile(join(config.COGS_DIR, f))]
         for extension in cogs:
             try:
-                bot.load_extension(config.COGS_DIR + "." + extension)
+                self.load_extension(config.COGS_DIR + "." + extension)
                 print("Loaded", extension)
             except Exception as e:
                 exc = '{}: {}'.format(type(e).__name__, e)
